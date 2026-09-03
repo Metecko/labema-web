@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/*
+ * Tema único y claro (sin modo oscuro por ahora): @heroui/styles v3.2.4
+ * tiene un bug en su respaldo por `prefers-color-scheme` para la variante
+ * `dark:` (genera un selector descendiente inválido que nunca coincide),
+ * así que solo se activaría con `data-theme="dark"` explícito. Para un
+ * sitio institucional simple, mantenemos un solo look consistente en vez
+ * de una mezcla a medias.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+  /*
+   * Sobrescribe el acento por defecto de HeroUI (azul genérico) por
+   * nuestro teal de marca (definido más abajo). Como este bloque :root
+   * no está dentro de un @layer, gana por encima de la capa `base` donde
+   * HeroUI define estos mismos tokens (así funciona la cascada de
+   * @layer en CSS).
+   */
+  --accent: #1f6f6a;
+  --accent-foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Paleta de marca, tomada del sello de la Escuela de Ciencias del Mar
+ * (PUCV): el azul marino del anillo exterior y los verdes-azulados de
+ * las olas del emblema interior. Genera las utilidades
+ * bg-brand-navy / text-brand-teal / border-brand-aqua, etc.
+ */
+@theme {
+  --color-brand-navy: #16224a; /* anillo exterior del sello */
+  --color-brand-navy-dark: #0d1730; /* variante más oscura (footer, hover) */
+  --color-brand-teal: #1f6f6a; /* banda media de las olas — acento principal */
+  --color-brand-teal-dark: #123f3c; /* banda más oscura — hover/pressed */
+  --color-brand-aqua: #5aada3; /* cresta de ola más clara — acento suave */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
